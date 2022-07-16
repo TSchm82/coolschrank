@@ -7,26 +7,16 @@ import { Injectable } from '@angular/core';
 export class FetchDataService {
 
   private apiServer = '//innovations.rola.com/build/rola/coolschrank/ongoing/application';
-  private username = 'test';
-  private password = 'test';
+  private username = 'username';
+  private password = 'password';
   private encodedString = btoa(`${this.username}:${this.password}`);
 
   constructor(private httpClient: HttpClient) { }
 
   public createFridge() {
-    const httpOptions = {
-      headers: new HttpHeaders()
-        .append('Content-Type', 'application/json')
-        .append('Authorization', `Basic ${this.encodedString}`)
-    };
-
-    const stringh = `Basic ${this.encodedString}`;
-
     const headers = new HttpHeaders()
-      // .append('Content-Type', 'application/json')
-      .set('Authorization', `Basic ${this.encodedString}`)
 
-    return this.httpClient.post(this.apiServer + '/fridge', httpOptions)
+    return this.httpClient.post(this.apiServer + '/fridge', [])
   }
 
 }
