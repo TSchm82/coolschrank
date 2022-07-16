@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './auth/auth-interceptor';
+import { TokenInterceptor } from '../auth/auth-interceptor';
 
 @NgModule({
   declarations: [
