@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import { TokenInterceptor } from 'src/auth/auth-interceptor';
 import { AuthService } from 'src/auth/auth.service';
 import { Fridge } from 'src/models/fridge.model';
 import { SettingsService } from 'src/settings-service/settings.service';
 import { FetchDataService } from '../fetch-data/fetch-data.service';
+
 
 @Component({
   selector: 'app-root',
@@ -30,23 +29,30 @@ export class AppComponent implements OnInit {
     const authkey = this.authService.getKey();
     const id = this.settingsService.getSettings(authkey);
 
-    this.fridge = await id && this.getFridge(id) || this.createFridgeAndStoreId(authkey);
+    if (id) {
+      this.fetchDataService.getFridge<Fridge>(id).subscribe(this.updateFridge)
 
-    console.log(this.fridge);
+      console.log(id)
+
+      return;
+    }
+
+    this.fetchDataService.createFridge<Fridge>().subscribe(fridge => {
+      this.updateFridge(fridge);
+
+      this.settingsService.saveSettings(authkey, this.fridge.id);
+    });
   }
 
-  public async createFridgeAndStoreId(key: string) {
-    const fridge = await firstValueFrom(this.fetchDataService.createFridge<Fridge>())
+  public updateFridge = (fridge: Fridge) => this.fridge = fridge;
 
-    this.settingsService.saveSettings(key, fridge.id)
+  public add() {
+    const item = {
+      name: `test ${this.fridge.inventory.length}`,
+      target: 0.5
+    };
 
-    return fridge;
-  }
-
-  public async getFridge(id: string) {
-    const fridge = await firstValueFrom(this.fetchDataService.getFridge<Fridge>(id))
-
-    return fridge;
+    this.fetchDataService.addItem(this.fridge.id, item).subscribe(() => this.fridge.inventory.push(item));
   }
 
 }

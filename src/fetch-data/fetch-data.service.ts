@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Item } from 'src/models/item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,8 @@ export class FetchDataService {
     return this.http.get<T>(this.apiServer + '/fridge/' + id);
   }
 
-  public addItem(id: string) {
-    const body = {
-      id: 0,
-      name: "string",
-      actual: 0.5,
-      target: 0.5
-    }
-
-    return this.http.post(this.apiServer + '/fridge/' + id + '/item', body)
+  public addItem(id: string, item: Item) {
+    return this.http.post(this.apiServer + '/fridge/' + id + '/item', item)
   }
 
   public getContent(id: string) {
