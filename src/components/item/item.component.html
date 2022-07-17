@@ -1,0 +1,42 @@
+<ng-container *ngIf=" !!selectedItem">
+    <form #form="ngForm" autocomplete="off">
+        <div class=" w-75 m-auto fs-2">
+
+            <div class="fs-6">Name</div>
+            <div class="fs-2"> {{ selectedItem.name }}</div>
+
+            <hr>
+
+            <div class="fs-6">Target</div>
+            <div class="fs-2"> {{ selectedItem.target }}</div>
+
+            <hr>
+
+            <div class="fs-6">Actual</div>
+            <div class="fs-2"> {{ selectedItem.actual }}</div>
+
+            <hr>
+
+            <div class="form-group">
+                <label for="actual" class="fs-6">Change quantity</label>
+
+                <div class="form-group d-flex flex-row ">
+
+                    <input #actualControl="ngModel" required [max]=" maxValue " [min]=" minValue" name="actual"
+                        type="number" class="form-control form-control-lg fs-2 w-50" id="actual" step="0.5"
+                        [(ngModel)]=" modifyValue ">
+
+                    <span *ngIf=" actualControl.invalid " id="validationError"
+                        class="text-center text-danger fs-4 w-50 m-auto"> {{ getValidationError(actualControl) }}
+                    </span>
+
+                </div>
+            </div>
+
+            <button [disabled]=" form.invalid " type="button" class="btn btn-primary float-end mt-5 fs-4"
+                (click)=" updateItem() ">Change
+                item</button>
+
+        </div>
+    </form>
+</ng-container>

@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { Item } from 'src/models/item.model';
 import { ApiService } from 'src/services/api/api.service';
 
@@ -25,6 +26,15 @@ export class ItemComponent implements OnChanges {
     return selectedItem.target - selectedItem.actual;
   }
 
+  public get minValue() {
+    const selectedItem = this.selectedItem;
+    if (!selectedItem || !selectedItem.actual) {
+      return 0;
+    }
+
+    return - selectedItem.actual;
+  }
+
   constructor(public apiService: ApiService) { }
 
   public ngOnChanges(): void {
@@ -43,5 +53,11 @@ export class ItemComponent implements OnChanges {
   }
 
   private setItem = (item: Item) => this.selectedItem = item;
+
+  public getValidationError(ngControl: NgControl) {
+
+    return ngControl.getError('min');
+    //   return errors && errors[0];
+  }
 
 }
