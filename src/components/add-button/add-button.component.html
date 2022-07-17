@@ -12,6 +12,12 @@
         </div>
 
         <div class="col-auto">
+            <input #inputRef type="number" class="form-control form-control-lg" id="itemTarget" placeholder="Target"
+                step="0.5">
+        </div>
+
+
+        <div class="col-auto">
             <button type="button" class="btn btn-primary mb-3 btn-lg" (click)=" addItem() ">
                 <i class="bi bi-plus-square-fill"></i> <span class=" m-2">Add</span>
             </button>

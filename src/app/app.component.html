@@ -13,8 +13,8 @@
 
 <body>
   <div class="container">
-    <h1 class="text-secondary text-center shadow p-3 m-5 bg-body rounded display-1">
-      <span class="text-info">Cool</span>schrank
+    <h1 class="text-secondary text-center shadow p-3 m-5 bg-body rounded display-1 fw-bold">
+      <span class="text-info ">Cool</span>schrank
     </h1>
 
     <div class="bg-info shadow p-3 m-5 bg-body rounded">
@@ -30,7 +30,7 @@
           </ul>
 
           <!--item-->
-          <div *ngIf=" !!selectedItemId " class=" container bg-light w-50 mh-50 rounded m-3">
+          <div *ngIf=" !!selectedItemId " class=" container bg-light w-50 mh-50 rounded ml-3 p-3">
             <components-item [selectedItemId]=" selectedItemId " [fridgeId]=" fridge.id"></components-item>
           </div>
 

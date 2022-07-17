@@ -15,11 +15,11 @@ export class ItemComponent implements OnChanges {
 
   public selectedItem: Item;
 
-  public modifyValue: number = 0;
+  public modifyValue: number = 1;
 
   public get maxValue() {
     const selectedItem = this.selectedItem;
-    if (!selectedItem || !selectedItem.actual || !selectedItem.target) {
+    if (!selectedItem || selectedItem.target === undefined || selectedItem.actual === undefined) {
       return 0;
     }
 
@@ -55,9 +55,19 @@ export class ItemComponent implements OnChanges {
   private setItem = (item: Item) => this.selectedItem = item;
 
   public getValidationError(ngControl: NgControl) {
+    const validators = ['min', 'max'];
 
-    return ngControl.getError('min');
-    //   return errors && errors[0];
+    for (const validator of validators) {
+      if (ngControl.errors && ngControl.errors[validator]) {
+        return validator;
+      }
+    }
+
+    return '';
+  }
+
+  public getEntries() {
+    return Object.entries(this.selectedItem);
   }
 
 }
