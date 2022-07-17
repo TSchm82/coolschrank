@@ -6,10 +6,9 @@ import { Item } from 'src/models/item.model';
 @Injectable({
   providedIn: 'root'
 })
-export class FetchDataService {
+export class ApiService {
 
-  // private apiServerori = 'https://innovations.rola.com/build/rola/coolschrank/ongoing/application';
-  private apiServer = 'http://localhost:8010/proxy';
+  private apiServer = 'https://innovations.rola.com/build/rola/coolschrank/ongoing/application';
 
   constructor(private http: HttpClient) { }
 
@@ -25,8 +24,11 @@ export class FetchDataService {
     return this.http.post(this.apiServer + '/fridge/' + id + '/item', item)
   }
 
-  public getContent(id: string) {
-    return this.http.get(this.apiServer + '/fridge/' + id);
+  public getItem(id: string, itemId: number) {
+    return this.http.get(this.apiServer + '/fridge/' + id + '/item/' + itemId);
   }
 
+  public updateItem(id: string, item: Item) {
+    return this.http.post(this.apiServer + '/fridge/' + id + '/item/' + item.id, item);
+  }
 }

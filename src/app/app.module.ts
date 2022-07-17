@@ -3,7 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from '../auth/auth-interceptor';
+import { ComponentsModule } from 'src/components/components.module';
+import { TokenInterceptor } from 'src/services/auth/auth-interceptor';
+import { InputComponent } from '../components/input/input.component';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,8 @@ import { TokenInterceptor } from '../auth/auth-interceptor';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    ComponentsModule
   ],
   providers: [
     {

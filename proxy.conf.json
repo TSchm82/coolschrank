@@ -1,0 +1,7 @@
+{
+    "/*": {
+        "target": "https://innovations.rola.com/build/rola/coolschrank/ongoing/application",
+        "secure": false,
+        "changeOrigin": false
+    }
+}

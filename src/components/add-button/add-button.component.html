@@ -1,0 +1,22 @@
+<section class="mt-5 bg-light flex flex-wrap">
+
+    <form class="row g-3 justify-content-end">
+
+        <div class="col-auto">
+            <label for="itemName" class="form-control-lg">
+                Here you can add <span class="text-uppercase fw-bold">items</span> to the fridge</label>
+        </div>
+
+        <div class="col-auto">
+            <input #inputRef type="text" class="form-control form-control-lg" id="itemName" placeholder="Name">
+        </div>
+
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3 btn-lg" (click)=" addItem() ">
+                <i class="bi bi-plus-square-fill"></i> <span class=" m-2">Add</span>
+            </button>
+        </div>
+
+    </form>
+
+</section>

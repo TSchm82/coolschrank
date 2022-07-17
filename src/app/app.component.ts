@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/auth/auth.service';
+import { takeUntil, Subject } from 'rxjs';
+
 import { Fridge } from 'src/models/fridge.model';
-import { SettingsService } from 'src/settings-service/settings.service';
-import { FetchDataService } from '../fetch-data/fetch-data.service';
+import { Item } from 'src/models/item.model';
+import { ApiService } from 'src/services/api/api.service';
+import { AuthService } from 'src/services/auth/auth.service';
+import { SettingsService } from 'src/services/settings/settings.service';
 
 
 @Component({
@@ -15,8 +18,10 @@ export class AppComponent implements OnInit {
 
   public fridge: Fridge;
 
+  public selectedItemId: number;
+
   constructor(
-    private fetchDataService: FetchDataService,
+    private apiService: ApiService,
     private settingsService: SettingsService,
     private authService: AuthService
   ) { }
@@ -30,14 +35,16 @@ export class AppComponent implements OnInit {
     const id = this.settingsService.getSettings(authkey);
 
     if (id) {
-      this.fetchDataService.getFridge<Fridge>(id).subscribe(this.updateFridge)
+      this.apiService
+        .getFridge<Fridge>(id)
+        .subscribe(this.updateFridge)
 
       console.log(id)
 
       return;
     }
 
-    this.fetchDataService.createFridge<Fridge>().subscribe(fridge => {
+    this.apiService.createFridge<Fridge>().subscribe(fridge => {
       this.updateFridge(fridge);
 
       this.settingsService.saveSettings(authkey, this.fridge.id);
@@ -46,13 +53,8 @@ export class AppComponent implements OnInit {
 
   public updateFridge = (fridge: Fridge) => this.fridge = fridge;
 
-  public add() {
-    const item = {
-      name: `test ${this.fridge.inventory.length}`,
-      target: 0.5
-    };
-
-    this.fetchDataService.addItem(this.fridge.id, item).subscribe(() => this.fridge.inventory.push(item));
+  public selectItem(id: number) {
+    this.selectedItemId = id;
   }
 
 }
