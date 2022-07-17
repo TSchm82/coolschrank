@@ -8,12 +8,13 @@
         </div>
 
         <div class="col-auto">
-            <input #inputRef type="text" class="form-control form-control-lg" id="itemName" placeholder="Name">
+            <input #nameInputControl="ngModel" name="nameInput" type="text" class="form-control form-control-lg"
+                id="itemName" placeholder="Name" [(ngModel)]=" newItem.name">
         </div>
 
         <div class="col-auto">
-            <input #inputRef type="number" class="form-control form-control-lg" id="itemTarget" placeholder="Target"
-                step="0.5">
+            <input #targetControl="ngModel" name="target" type="number" class="form-control form-control-lg"
+                id="itemTarget" placeholder="Target" step="0.5" [(ngModel)]=" newItem.target">
         </div>
 
 

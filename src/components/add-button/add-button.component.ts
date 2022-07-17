@@ -13,10 +13,7 @@ export class AddbuttonComponent implements OnInit {
 
   @Output() public itemAdded = new EventEmitter<Item>();
 
-  /**
-   * Reference to the input element.
-   */
-  @ViewChild('inputRef') public inputRef: ElementRef<HTMLInputElement>;
+  public newItem: Item = this.newItemPristine();
 
   constructor(private apiService: ApiService) { }
 
@@ -24,12 +21,17 @@ export class AddbuttonComponent implements OnInit {
   }
 
   public addItem() {
-    const item = {
-      name: this.inputRef.nativeElement.value,
-      actual: 5
-    };
+    this.apiService.addItem(this.fridge.id, this.newItem).subscribe(newItem => {
+      this.itemAdded.emit(newItem);
+      this.newItem = this.newItemPristine();
+    })
+  }
 
-    this.apiService.addItem(this.fridge.id, item).subscribe(() => this.itemAdded.emit(item))
+  private newItemPristine() {
+    return {
+      name: null,
+      target: null
+    };
   }
 
 }

@@ -3,13 +3,13 @@
         <div class=" w-75 m-auto fs-2">
 
             <ng-container *ngFor=" let entry of getEntries() ">
-                <div class="fs-6">{{ entry[0] }}</div>
+                <div class="fs-6 text-uppercase">{{ entry[0] }}</div>
                 <div class="fs-2"> {{ entry[1] }}</div>
                 <hr>
             </ng-container>
 
             <div class="form-group">
-                <label for="actual" class="fs-6">Change quantity</label>
+                <label for="actual" class="fs-6 text-uppercase">Change quantity</label>
 
                 <div class="form-group d-flex row ">
                     <div class="col-auto">

@@ -19,11 +19,11 @@ export class ItemComponent implements OnChanges {
 
   public get maxValue() {
     const selectedItem = this.selectedItem;
-    if (!selectedItem || selectedItem.target === undefined || selectedItem.actual === undefined) {
+    if (!selectedItem) {
       return 0;
     }
 
-    return selectedItem.target - selectedItem.actual;
+    return (selectedItem.target || 0) - (selectedItem.actual || 0);
   }
 
   public get minValue() {

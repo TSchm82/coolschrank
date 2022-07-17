@@ -1,11 +1,11 @@
 export interface Item {
 
-    id?: number;
+    id?: number | null;
 
-    name?: string;
+    name?: string | null;
 
-    actual?: number;
+    actual?: number | null;
 
-    target?: number
+    target?: number | null
 
 }
