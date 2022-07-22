@@ -11,30 +11,58 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 
-<body>
+<body sytel="max-width: 800px">
   <div class="container">
     <h1 class="text-secondary text-center shadow p-3 m-5 bg-body rounded display-1 fw-bold">
       <span class="text-info ">Cool</span>schrank
     </h1>
 
-    <div class="bg-info shadow p-3 m-5 bg-body rounded">
+    <div class="d-flex justify-content-center">
+
+      <nav aria-label="...">
+        <ul class="pagination pagination">
+
+          <li *ngFor="let page of pages,  let i = index " id="pageItem{{i}}" class="page-item"><a class="page-link"
+              href="#" (click)=" selectPage(i) "> {{ i + 1 }}</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <div class="bg-info shadow p-3 m-5 bg-body rounded row">
 
       <ng-container *ngIf=" !!fridge ">
-        <div class=" d-flex flex-row">
-          <!--inventory-->
-          <ul class="list-group list-group-flush w-50">
-            <li *ngFor="let item of fridge.inventory " class="list-group-item">
-              <label class="fs-2" (click)=" item.id && selectItem(item.id) ">{{ item.name }}</label>
-              <!-- <i class="bi bi-trash-fill float-right fs-2" (click)=" deleteItem(item) "></i> -->
-            </li>
-          </ul>
+        <!--inventory-->
+        <!-- <ul class="list-group list-group-flush col col-md-6 col-sm-12">
+          <li *ngFor="let item of fridge.inventory " class="list-group-item">
+            <label class="fs-2" (click)=" item.id && selectItem(item.id) ">{{ item.name }}</label>
+          </li>
+        </ul> -->
 
-          <!--item-->
-          <div *ngIf=" !!selectedItemId " class=" container bg-light w-50 mh-50 rounded ml-3 p-3">
-            <components-item [selectedItemId]=" selectedItemId " [fridgeId]=" fridge.id"></components-item>
+        <div class="col col-md-6 col-sm-12 d-flex flex-row flex-wrap">
+
+          <div *ngFor="let item of getItemPage(page) " class="w-50 p-2 mh-25">
+
+            <div class="card p-2 bg-light" (click)=" item.id && selectItem(item.id) ">
+              <div class="card-img-top">
+                <img src="../assets/large_summer-snack-set.png" class="img-fluid"
+                  style="max-width: 100%; height: auto;">
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+              </div>
+            </div>
+
           </div>
 
         </div>
+
+        <!--item-->
+        <div *ngIf=" !!selectedItemId " class="bg-light mh-50 rounded ml-3 p-3 col col-md-6 col-sm-12">
+          <components-item [selectedItemId]=" selectedItemId " [fridgeId]=" fridge.id"></components-item>
+        </div>
+
       </ng-container>
 
       <components-add-button [fridge]=" fridge " (itemAdded)=" fridge.inventory.push($event) "></components-add-button>

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { takeUntil, Subject } from 'rxjs';
 
 import { Fridge } from 'src/models/fridge.model';
-import { Item } from 'src/models/item.model';
+
 import { ApiService } from 'src/services/api/api.service';
 import { AuthService } from 'src/services/auth/auth.service';
 import { SettingsService } from 'src/services/settings/settings.service';
@@ -14,11 +13,24 @@ import { SettingsService } from 'src/services/settings/settings.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   title = 'Fridge';
 
   public fridge: Fridge;
 
   public selectedItemId: number;
+
+  public page = 1;
+
+  public get pages() {
+    if (!this.fridge) {
+      return [1];
+    }
+
+    const pageCounter = Math.round(this.fridge.inventory.length / 6)
+
+    return Array.from({ length: pageCounter }, (_, i) => i + 1);
+  }
 
   constructor(
     private apiService: ApiService,
@@ -39,8 +51,6 @@ export class AppComponent implements OnInit {
         .getFridge<Fridge>(id)
         .subscribe(this.updateFridge)
 
-      console.log(id)
-
       return;
     }
 
@@ -55,6 +65,19 @@ export class AppComponent implements OnInit {
 
   public selectItem(id: number) {
     this.selectedItemId = id;
+  }
+
+  public getItemPage(page: number) {
+    const start = (page - 1) * 6;
+    const end = page * 6;
+
+    return this.fridge.inventory.slice(start, end);
+  }
+
+  public selectPage(index: number) {
+    const test = document.querySelectorAll('li.page-item')
+
+    console.log(test)
   }
 
 }
