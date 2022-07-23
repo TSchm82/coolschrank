@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { NgControl, NgModel } from '@angular/forms';
 import { Item } from 'src/models/item.model';
 import { ApiService } from 'src/services/api/api.service';
 
@@ -12,6 +12,8 @@ export class ItemComponent implements OnChanges {
   @Input() public selectedItemId: number;
 
   @Input() public fridgeId: string;
+
+  @ViewChild('actualControl') public ngControl: NgControl;
 
   public selectedItem: Item;
 
@@ -52,10 +54,11 @@ export class ItemComponent implements OnChanges {
     this.apiService.updateItem(this.fridgeId, changeModel).subscribe(this.setItem);
   }
 
-  private setItem = (item: Item) => this.selectedItem = item;
+  public setItem = (item: Item) => this.selectedItem = item;
 
-  public getValidationError(ngControl: NgControl) {
+  public getValidationError() {
     const validators = ['min', 'max'];
+    const ngControl = this.ngControl;
 
     for (const validator of validators) {
       if (ngControl.errors && ngControl.errors[validator]) {

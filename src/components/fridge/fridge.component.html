@@ -1,0 +1,36 @@
+<ng-container *ngIf=" !!fridge ">
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center">
+    <components-pagination [inventoryLength]=" fridge.inventory.length " [(page)]=" page "></components-pagination>
+  </div>
+
+  <div class="shadow p-3 m-5 bg-body rounded row">
+
+    <!-- Selected Page -->
+    <div class="col col-md-6 col-sm-12 d-flex flex-row flex-wrap">
+      <div *ngFor="let item of getItemPage(page) " class="w-50 p-2 mh-25">
+        <div class="card p-2 bg-light" [class.border]=" item.id === selectedItemId "
+          [class.border-success]=" item.id === selectedItemId " (click)=" item.id && selectItem(item.id) ">
+          <div class="card-img-top">
+            <img src="../assets/large_summer-snack-set.png" class="img-fluid" style="max-width: 100%; height: auto;">
+          </div>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Selected item-->
+    <div *ngIf=" !!selectedItemId " class="bg-light mh-50 rounded ml-3 p-3 col col-md-6 col-sm-12">
+      <components-item [selectedItemId]=" selectedItemId " [fridgeId]=" fridge.id"></components-item>
+    </div>
+
+    <!--Add item-->
+    <components-add-button [fridge]=" fridge " (itemAdded)=" fridge.inventory.push($event) "></components-add-button>
+
+  </div>
+
+</ng-container>

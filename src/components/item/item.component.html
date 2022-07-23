@@ -18,8 +18,7 @@
                             step="0.5" id="actual" [(ngModel)]=" modifyValue ">
 
                         <span *ngIf=" actualControl.invalid " class="text-center text-danger fs-4 w-50 m-auto"> Error:
-                            {{
-                            getValidationError(actualControl) }}
+                            {{ getValidationError() }}
                         </span>
                     </div>
 

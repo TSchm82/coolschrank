@@ -11,10 +11,6 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-    private username = 'username';
-    private password = 'password';
-    private encodedString = btoa(`${this.username}:${this.password}`);
-
     constructor(private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -27,7 +23,4 @@ export class TokenInterceptor implements HttpInterceptor {
         return next.handle(request);
     }
 
-    public getKey() {
-        return this.encodedString;
-    }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from 'src/models/item.model';
 
@@ -10,7 +10,11 @@ export class ApiService {
 
   private apiServer = 'https://innovations.rola.com/build/rola/coolschrank/ongoing/application';
 
-  constructor(private http: HttpClient) { }
+  private http: HttpClient;
+
+  constructor(injector: Injector) {
+    this.http = injector.get(HttpClient);
+  }
 
   public createFridge<T>(): Observable<T> {
     return this.http.post<T>(this.apiServer + '/fridge', [])

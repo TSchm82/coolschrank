@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Fridge } from 'src/models/fridge.model';
 import { Item } from 'src/models/item.model';
 import { ApiService } from 'src/services/api/api.service';
@@ -7,7 +7,7 @@ import { ApiService } from 'src/services/api/api.service';
   selector: 'components-add-button',
   templateUrl: './add-button.component.html',
 })
-export class AddbuttonComponent implements OnInit {
+export class AddbuttonComponent {
 
   @Input() public fridge: Fridge;
 
@@ -17,17 +17,16 @@ export class AddbuttonComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit(): void {
+  public async addItem() {
+    this.apiService
+      .addItem(this.fridge?.id, this.newItem)
+      .subscribe(newItem => {
+        this.itemAdded.emit(newItem);
+        this.newItem = this.newItemPristine();
+      })
   }
 
-  public addItem() {
-    this.apiService.addItem(this.fridge.id, this.newItem).subscribe(newItem => {
-      this.itemAdded.emit(newItem);
-      this.newItem = this.newItemPristine();
-    })
-  }
-
-  private newItemPristine() {
+  public newItemPristine() {
     return {
       name: null,
       target: null
