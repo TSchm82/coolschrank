@@ -9,16 +9,16 @@
             </ng-container>
 
             <div class="form-group">
-                <label for="actual" class="fs-6 text-uppercase">Change quantity</label>
+                <label for="modify" class="fs-6 text-uppercase">Change quantity</label>
 
                 <div class="form-group d-flex row ">
                     <div class="col-auto">
-                        <input #actualControl="ngModel" [max]=" maxValue " [min]=" minValue"
-                            name="actual{{selectedItem.id}}" type="number" class="form-control form-control-lg fs-2"
-                            step="0.5" id="actual" [(ngModel)]=" modifyValue ">
+                        <input #modifyControl="ngModel" [max]=" maxValue " [min]=" minValue"
+                            name="modify{{selectedItem.id}}" type="number" class="form-control form-control-lg fs-2"
+                            step="0.5" id="modify" [(ngModel)]=" modifyValue ">
 
-                        <span *ngIf=" actualControl.invalid " class="text-center text-danger fs-4 w-50 m-auto"> Error:
-                            {{ getValidationError() }}
+                        <span *ngIf=" modifyControl.invalid " class="text-center text-danger fs-4 w-50 m-auto"> Error:
+                            {{ getValidationError(maxValue, minValue) }}
                         </span>
                     </div>
 

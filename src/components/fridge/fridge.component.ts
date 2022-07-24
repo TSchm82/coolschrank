@@ -61,6 +61,10 @@ export class FridgeComponent implements OnInit {
   }
 
   public getItemPage(page: number) {
+    if (page < 0) {
+      return [];
+    }
+
     const start = (page - 1) * ITEMSPERPAGE;
     const end = page * ITEMSPERPAGE;
 

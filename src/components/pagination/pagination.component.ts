@@ -4,10 +4,9 @@ const ITEMSPERPAGE = 4;
 
 @Component({
   selector: 'components-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.css']
+  templateUrl: './pagination.component.html'
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
 
   @Input() public inventoryLength: number;
 
@@ -23,11 +22,6 @@ export class PaginationComponent implements OnInit {
     const pageCounter = Math.round(this.inventoryLength / ITEMSPERPAGE)
 
     return Array.from({ length: pageCounter }, (_, i) => i + 1);
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
   public selectPage(modificator: number) {

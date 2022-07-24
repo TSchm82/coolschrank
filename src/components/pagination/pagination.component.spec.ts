@@ -51,4 +51,18 @@ describe('PaginationComponent', () => {
     expect(component.isDisabled(2)).toBeTrue();
   });
 
+  it("should calculate correct amount of pages", () => {
+    component.inventoryLength = 20;
+    expect(component.pages.length).toBe(5);
+  });
+
+  it("should calculate correct amount of pages when rounded", () => {
+    component.inventoryLength = 18;
+    expect(component.pages.length).toBe(5);
+  });
+
+  it("should return [1] when inventoryLngth is undefined", () => {
+    expect(component.pages).toEqual([1]);
+  });
+
 });

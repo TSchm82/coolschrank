@@ -19,7 +19,7 @@ export class AddbuttonComponent {
 
   public async addItem() {
     this.apiService
-      .addItem(this.fridge?.id, this.newItem)
+      .addItem(this.fridge.id, this.newItem)
       .subscribe(newItem => {
         this.itemAdded.emit(newItem);
         this.newItem = this.newItemPristine();

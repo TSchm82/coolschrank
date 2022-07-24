@@ -36,13 +36,6 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Fridge');
   });
 
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('.content span')?.textContent).toContain('coolschrank app is running!');
-  // });
-
   it('should logout on click', fakeAsync(() => {
     authServiceSpy.isAuthenticated.and.returnValue(true);
 

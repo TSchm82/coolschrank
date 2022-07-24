@@ -14,20 +14,22 @@ describe('FridgeComponent', () => {
   let component: FridgeComponent;
   let fixture: ComponentFixture<FridgeComponent>;
 
+  const apiServiceSpy = jasmine.createSpyObj<ApiService>(['getFridge', 'createFridge']);
+  apiServiceSpy.getFridge.and.returnValue(of(FRIDGEDUMMY));
+  apiServiceSpy.createFridge.and.returnValue(of(FRIDGEDUMMY));
+
+  const authServiceSpy = jasmine.createSpyObj<AuthService>(['getKey']);
+  authServiceSpy.getKey.and.returnValue('dummyKey');
+
+  const settingsServiceSpy = jasmine.createSpyObj<SettingsService>(['saveSettings', 'getSettings']);
+
   beforeEach(async () => {
-    const apiServiceSpy = jasmine.createSpyObj<ApiService>(['getFridge', 'createFridge']);
-    apiServiceSpy.getFridge.and.returnValue(of(FRIDGEDUMMY));
-    apiServiceSpy.createFridge.and.returnValue(of(FRIDGEDUMMY));
-
-    const authServiceSpy = jasmine.createSpyObj<AuthService>(['getKey']);
-    authServiceSpy.getKey.and.returnValue('dummyKey');
-
     await TestBed.configureTestingModule({
       declarations: [FridgeComponent],
       providers: [
-        SettingsService,
         { provide: ApiService, useValue: apiServiceSpy },
-        { provide: AuthService, useValue: authServiceSpy }
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: SettingsService, useValue: settingsServiceSpy }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -35,8 +37,6 @@ describe('FridgeComponent', () => {
     fixture = TestBed.createComponent(FridgeComponent);
     component = fixture.componentInstance;
     component.fridge = FRIDGEDUMMY;
-
-    spyOn(component.settingsService, 'saveSettings');
 
     // create more elementsto test paging
     for (let i = 0; i < 20; i++) {
@@ -63,10 +63,13 @@ describe('FridgeComponent', () => {
     expect(component.fridge).toBe(FRIDGEDUMMY);
   });
 
-  it('should get x items per page', () => {
-    expect(component.getItemPage(3).length).toBe(ITEMSPERPAGE);
+  it('should return [] if page is negative', () => {
+    expect(component.getItemPage(-3)).toEqual([]);
   });
 
+  it('should return x items per page', () => {
+    expect(component.getItemPage(3).length).toBe(ITEMSPERPAGE);
+  });
 
   it('should have correct start index ', () => {
     const startIndex = 2 * ITEMSPERPAGE;
@@ -99,7 +102,7 @@ describe('FridgeComponent', () => {
 
   it('should create fridge when no id exists', () => {
     spyOn(component, 'create')
-    spyOn(component.settingsService, 'getSettings').and.returnValue(null);
+    settingsServiceSpy.getSettings.and.returnValue(null);
 
     component.initializeFridge();
 
@@ -108,7 +111,8 @@ describe('FridgeComponent', () => {
 
   it('should read fridge when id exists', () => {
     spyOn(component, 'read')
-    spyOn(component.settingsService, 'getSettings').and.returnValue('testId');
+
+    settingsServiceSpy.getSettings.and.returnValue('fakeId');
 
     component.initializeFridge();
 

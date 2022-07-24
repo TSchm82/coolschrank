@@ -1,6 +1,8 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AppModule } from 'src/app/app.module';
+
+import { AuthService } from 'src/services/auth/auth.service';
 
 import { LoginComponent } from './login.component';
 
@@ -8,11 +10,11 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppModule],
-      declarations: [LoginComponent]
+      imports: [FormsModule],
+      declarations: [LoginComponent],
+      providers: [AuthService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
@@ -24,17 +26,16 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should login', fakeAsync(() => {
+  it('should login', () => {
     component.user = 'fakeUser';
     component.password = 'fakePassword';
 
     component.login();
-    tick();
 
     const isAutenticated = component.authService.isAuthenticated();
 
     expect(isAutenticated).toBe(true);
-  }));
+  });
 
   it('should call login() on button click', fakeAsync(() => {
     spyOn(component, 'login');

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import { Item } from 'src/models/item.model';
 import { ApiService } from 'src/services/api/api.service';
 
@@ -13,11 +13,13 @@ export class ItemComponent implements OnChanges {
 
   @Input() public fridgeId: string;
 
-  @ViewChild('actualControl') public ngControl: NgControl;
+  @ViewChild('modifyControl') public modifyControl: NgControl;
 
   public selectedItem: Item;
 
   public modifyValue: number = 1;
+
+  constructor(public apiService: ApiService) { }
 
   public get maxValue() {
     const selectedItem = this.selectedItem;
@@ -37,8 +39,6 @@ export class ItemComponent implements OnChanges {
     return - selectedItem.actual;
   }
 
-  constructor(public apiService: ApiService) { }
-
   public ngOnChanges(): void {
     requestAnimationFrame(() => this.selectedItemId && this.getSelectedItem(this.selectedItemId));
   }
@@ -56,14 +56,15 @@ export class ItemComponent implements OnChanges {
 
   public setItem = (item: Item) => this.selectedItem = item;
 
-  public getValidationError() {
-    const validators = ['min', 'max'];
-    const ngControl = this.ngControl;
+  public getValidationError(max: number, min: number) {
+    const modifyValue = this.modifyValue;
 
-    for (const validator of validators) {
-      if (ngControl.errors && ngControl.errors[validator]) {
-        return validator;
-      }
+    if (modifyValue > max) {
+      return 'Too high'
+    }
+
+    if (modifyValue < min) {
+      return 'Too low'
     }
 
     return '';
