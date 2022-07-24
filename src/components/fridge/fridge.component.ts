@@ -29,7 +29,7 @@ export class FridgeComponent implements OnInit {
     this.initializeFridge();
   }
 
-  public async initializeFridge() {
+  public initializeFridge() {
     const authkey = this.authService.getKey();
     const id = this.settingsService.getSettings(authkey);
 

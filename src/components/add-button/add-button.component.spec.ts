@@ -1,8 +1,11 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { AppModule } from 'src/app/app.module';
+import { of } from 'rxjs';
 import { FRIDGEDUMMY } from 'src/Dummies/fridge-dummy';
 import { ITEMDUMMY } from 'src/Dummies/item-dummy';
+import { ApiService } from 'src/services/api/api.service';
 
 import { AddbuttonComponent } from './add-button.component';
 
@@ -11,9 +14,13 @@ describe('AddbuttonComponent', () => {
   let fixture: ComponentFixture<AddbuttonComponent>;
 
   beforeEach(async () => {
+    const apiServiceSpy = jasmine.createSpyObj<ApiService>(['addItem']);
+    apiServiceSpy.addItem.and.returnValue(of(ITEMDUMMY));
+
     await TestBed.configureTestingModule({
-      imports: [AppModule],
-      declarations: [AddbuttonComponent]
+      imports: [CommonModule, FormsModule],
+      declarations: [AddbuttonComponent],
+      providers: [{ provide: ApiService, useValue: apiServiceSpy }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddbuttonComponent);
@@ -53,21 +60,11 @@ describe('AddbuttonComponent', () => {
 
 
   it("should add item", async () => {
+    spyOn(component.itemAdded, 'emit');
 
-    spyOn(component.itemAdded, 'emit').and.resolveTo();
-
-    fixture.detectChanges();
+    component.addItem();
 
     expect(component.itemAdded.emit).toHaveBeenCalled();
   });
-
-  // it('should emit event ', async () => {
-  //   spyOn(component.itemAdded, 'emit');
-
-  //   await component.addItem().finally(() => {
-  //     expect(component.itemAdded.emit).toHaveBeenCalled();
-  //   });
-
-  // });
 
 });
