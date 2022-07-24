@@ -1,23 +1,22 @@
-<section class="mt-5 bg-light flex flex-wrap">
+<section class="mt-5 bg-light">
 
-    <form class="row g-3">
-
-        <div class="col col-md-4 col-sm-12">
+    <form class="row g-3 text-center px-3">
+        <div class="col-12">
             <label for="itemName" class="form-control-lg">
                 Here you can add <span class="text-uppercase fw-bold">items</span> to the fridge</label>
         </div>
 
-        <div class="col col-lg-3 col-sm-12">
+        <div class="col col-lg-5 col-12">
             <input #nameInputControl="ngModel" name="nameInput" type="text" class="form-control form-control-lg"
                 id="itemName" placeholder="Name" [(ngModel)]=" newItem.name">
         </div>
 
-        <div class="col col-lg-3 col-sm-12">
+        <div class="col col-lg-5 col-12">
             <input #targetControl="ngModel" name="target" type="number" class="form-control form-control-lg"
                 id="itemTarget" placeholder="Target" step="0.5" [(ngModel)]=" newItem.target">
         </div>
 
-        <div class="col col-lg-2 col-sm-12">
+        <div class="col col-lg-2 col-12">
             <button type="button" class="btn btn-primary mb-3 btn-lg" (click)=" addItem() ">
                 <i class="bi bi-plus-square-fill"></i> <span class=" m-2">Add</span>
             </button>
