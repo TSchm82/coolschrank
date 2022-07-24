@@ -5,9 +5,11 @@ import { AuthService } from 'src/services/auth/auth.service';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  const authServiceSpy = jasmine.createSpyObj<AuthService>(['logout', 'isAuthenticated']);
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+
+  const authServiceSpy = jasmine.createSpyObj<AuthService>(['logout', 'isAuthenticated']);
+  authServiceSpy.isAuthenticated.and.returnValue(true);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -37,8 +39,6 @@ describe('AppComponent', () => {
   });
 
   it('should logout on click', fakeAsync(() => {
-    authServiceSpy.isAuthenticated.and.returnValue(true);
-
     let logout = fixture.debugElement.query(By.css('.logout'));
     logout.triggerEventHandler('click', null);
 
