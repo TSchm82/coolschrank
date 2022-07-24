@@ -12,7 +12,6 @@ const itemId = 678;
 
 describe('ApiService', () => {
   let service: ApiService;
-
   let httpMock: HttpTestingController;
 
   beforeEach(() => {

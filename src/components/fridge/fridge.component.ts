@@ -20,9 +20,9 @@ export class FridgeComponent implements OnInit {
   public page = 1;
 
   constructor(
-    private apiService: ApiService,
-    private settingsService: SettingsService,
-    private authService: AuthService
+    public apiService: ApiService,
+    public settingsService: SettingsService,
+    public authService: AuthService
   ) { }
 
   public ngOnInit(): void {
