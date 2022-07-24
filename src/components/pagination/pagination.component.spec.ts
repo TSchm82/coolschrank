@@ -22,15 +22,27 @@ describe('PaginationComponent', () => {
   });
 
   it("should increase page", () => {
+    spyOn(component, 'isDisabled').and.returnValue(false);
+
     component.selectPage(2);
 
     expect(component.page).toBe(6);
   });
 
   it("should decrease page", () => {
+    spyOn(component, 'isDisabled').and.returnValue(false);
+
     component.selectPage(-3);
 
     expect(component.page).toBe(1);
+  });
+
+  it("should do nothing when isDisabled(modifier) is true", () => {
+    spyOn(component, 'isDisabled').and.returnValue(true);
+
+    component.selectPage(-3);
+
+    expect(component.page).toBe(4);
   });
 
   it("should emit page change", () => {

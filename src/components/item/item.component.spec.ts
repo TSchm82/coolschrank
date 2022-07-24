@@ -100,6 +100,14 @@ describe('ItemComponent', () => {
     expect(component.maxValue).toBe(5);
   });
 
+  it('maxValue should be 0 when selectedItem is undefined', () => {
+    let undefined: any;
+
+    component.selectedItem = undefined;
+
+    expect(component.maxValue).toBe(0);
+  });
+
   it('should return key/values of an object', () => {
     const entries = component.getEntries();
     const expectedValue = Object.entries(ITEMDUMMY);
