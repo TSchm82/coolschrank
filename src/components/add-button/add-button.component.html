@@ -7,19 +7,17 @@
         </div>
 
         <div class="col col-lg-5 col-12">
-            <input #nameInputControl="ngModel" name="nameInput" type="text" class="form-control form-control-lg"
-                id="itemName" placeholder="Name" [(ngModel)]=" newItem.name">
+            <input #nameInputControl="ngModel" name="nameInput" type="text" class="form-control form-control-lg fs-2"
+                id="itemName" placeholder="Name" maxlength="20" [(ngModel)]=" newItem.name">
         </div>
 
         <div class="col col-lg-5 col-12">
-            <input #targetControl="ngModel" name="target" type="number" class="form-control form-control-lg"
+            <input #targetControl="ngModel" name="target" type="number" class="form-control form-control-lg fs-2"
                 id="itemTarget" placeholder="Target" step="0.5" [(ngModel)]=" newItem.target">
         </div>
 
         <div class="col col-lg-2 col-12">
-            <button type="button" class="btn btn-primary mb-3 btn-lg" (click)=" addItem() ">
-                <i class="bi bi-plus-square-fill"></i> <span class=" m-2">Add</span>
-            </button>
+            <button type="button" class="btn btn-primary mb-3 btn-lg fs-2" (click)=" addItem() ">Add item</button>
         </div>
 
     </form>

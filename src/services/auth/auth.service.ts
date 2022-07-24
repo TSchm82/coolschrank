@@ -5,8 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  public user: string | null;
-  public password: string | null;
+  // public user: string | null;
+  // public password: string | null;
+
+  public user: string | null = 'username';
+  public password: string | null = 'password';
 
   constructor() { }
 
@@ -15,7 +18,10 @@ export class AuthService {
   }
 
   public isAuthenticated() {
-    return !!this.user && !!this.password;
+
+    return true;
+
+    // return !!this.user && !!this.password;
   }
 
   public login(user: string, password: string) {

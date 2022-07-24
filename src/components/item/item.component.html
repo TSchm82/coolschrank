@@ -11,8 +11,8 @@
             <div class="form-group">
                 <label for="modify" class="fs-6 text-uppercase">Change quantity</label>
 
-                <div class="form-group d-flex row ">
-                    <div class="col-auto">
+                <div class="row">
+                    <div class="col col-12 col-lg-8">
                         <input #modifyControl="ngModel" [max]=" maxValue " [min]=" minValue"
                             name="modify{{selectedItem.id}}" type="number" class="form-control form-control-lg fs-2"
                             step="0.5" id="modify" [(ngModel)]=" modifyValue ">
@@ -23,7 +23,7 @@
                     </div>
 
                     <button [disabled]=" form.invalid || !modifyValue" type="button"
-                        class="btn btn-primary mb-auto fs-2 col-auto" (click)=" updateItem() ">Update
+                        class="btn btn-primary mb-auto fs-2 col col-12 col-lg-4" (click)=" updateItem() ">Add
                     </button>
 
                 </div>
