@@ -19,7 +19,7 @@
 
     <!-- <div *ngIf=" authService.isAuthenticated()"> -->
     <div class="d-flex flex-row-reverse mx-5">
-      <div class="display-4 text-info logout" [class.d-none]=" authService.isAuthenticated() "
+      <div class="display-4 text-info logout" [class.d-none]=" !authService.isAuthenticated() "
         (click)=" authService.logout() ">
         <i class="bi bi-box-arrow-right ml-1"></i>
       </div>
