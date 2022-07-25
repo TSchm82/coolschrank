@@ -1,21 +1,19 @@
 <nav aria-label="...">
     <ul class="pagination">
+
+        <!--Decrease-->
         <li class="page-item" [class.disabled]=" isDisabled(-1) " (click)=" selectPage(-1)">
             <a class="page-link fs-2">Prev</a>
         </li>
+
+        <!--Selected page-->
         <li class="page-item active">
             <a class="page-link fs-2" href="#"> {{ page }}</a>
         </li>
+
+        <!--Increase-->
         <li class="page-item" [class.disabled]=" isDisabled(1) " (click)=" selectPage(1)">
             <a class="page-link fs-2" href="#">next</a>
         </li>
     </ul>
 </nav>
-
-<!-- <nav aria-label="...">
-    <ul class="pagination pagination">
-
-        <li *ngFor="let page of pages,  let i = index " id="pageItem{{i}}" class="page-item"><a class="page-link"
-                href="#" (click)=" selectPage(i) "> {{ i + 1 }}</a></li>
-    </ul>
-</nav> -->

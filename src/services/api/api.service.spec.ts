@@ -4,7 +4,6 @@ import { ApiService } from './api.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FRIDGEDUMMY } from 'src/Dummies/fridge-dummy';
 import { ITEMDUMMY } from 'src/Dummies/item-dummy';
-import { AppModule } from 'src/app/app.module';
 
 const apiServer = 'https://innovations.rola.com/build/rola/coolschrank/ongoing/application';
 const fridgeId = '12345';
@@ -80,4 +79,17 @@ describe('ApiService', () => {
     req.flush(ITEMDUMMY);
   });
 
-});
+  it("should log error", () => {
+    const spy = spyOn(console, 'error');
+
+    const expected = {
+      code: "validationFailed",
+      message: "Invalid input",
+    };
+
+    service.handleError(expected);
+
+    expect(spy).toHaveBeenCalledWith('error caught in api service:', expected);
+  });
+
+})

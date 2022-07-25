@@ -2,16 +2,20 @@
     <form #form="ngForm" autocomplete="off">
         <div class=" w-75 m-auto fs-2">
 
+            <!--Read only section-->
             <ng-container *ngFor=" let entry of getEntries() ">
                 <div class="fs-6 text-uppercase">{{ entry[0] }}</div>
                 <div class="fs-2"> {{ entry[1] }}</div>
                 <hr>
             </ng-container>
 
+            <!--Form group-->
             <div class="form-group">
                 <label for="modify" class="fs-6 text-uppercase">Change quantity</label>
 
                 <div class="row">
+
+                    <!--Input & Validation-->
                     <div class="col col-12 col-lg-8">
                         <input #modifyControl="ngModel" [max]=" maxValue " [min]=" minValue"
                             name="modify{{selectedItem.id}}" type="number" class="form-control form-control-lg fs-2"
@@ -22,6 +26,7 @@
                         </span>
                     </div>
 
+                    <!--Add button-->
                     <button [disabled]=" form.invalid || !modifyValue" type="button"
                         class="btn btn-primary mb-auto fs-2 col col-12 col-lg-4" (click)=" updateItem() ">Add
                     </button>

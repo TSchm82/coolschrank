@@ -9,18 +9,21 @@
                         Name and password are only used for key generation
                     </h5>
 
+                    <!--User input-->
                     <div class="form-outline mb-4">
                         <input #userControl="ngModel" type="text" id="user" class="form-control form-control-lg"
                             [(ngModel)]=" user " />
                         <label class="form-label" for="user">User</label>
                     </div>
 
+                    <!--Password input-->
                     <div class="form-outline mb-4">
                         <input #passwordControl="ngModel" type="password" id="password"
                             class="form-control form-control-lg" [(ngModel)]=" password " />
                         <label class="form-label" for="password">Password</label>
                     </div>
 
+                    <!--Login button-->
                     <button class="btn btn-primary btn-lg btn-block" [disabled]=" !password || !user" type="submit"
                         (click)=" login() ">Login</button>
                 </div>

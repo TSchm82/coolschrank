@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsService {
 
-  constructor() { }
-
   public saveSettings(key: string, value: any) {
     localStorage.setItem(key, JSON.stringify(value));
   }

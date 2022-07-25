@@ -8,7 +8,9 @@
   <div class="shadow p-3 mx-5 my-2 bg-body rounded row">
     <!-- Selected Page -->
     <div class="col col-12 col-md-6 col-lg-6 d-flex flex-row flex-wrap">
-      <div *ngFor="let item of getItemPage(page) " class="w-50 h-50 p-2">
+      <div *ngFor="let item of getItemPage(page) " class="w-50 mh-50 p-2">
+
+        <!--Item-->
         <div class="card p-2 bg-light w-100 h-100" [class.border]=" item.id === selectedItemId "
           [class.border-success]=" item.id === selectedItemId " (click)=" item.id && selectItem(item.id) ">
           <div class="m-auto">

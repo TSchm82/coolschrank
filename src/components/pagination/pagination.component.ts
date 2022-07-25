@@ -34,7 +34,7 @@ export class PaginationComponent {
   }
 
   public isDisabled(modificator: number) {
-    const maxPages = Math.round(this.inventoryLength / ITEMSPERPAGE)
+    const maxPages = Math.ceil(this.inventoryLength / ITEMSPERPAGE)
 
     return (this.page + modificator < 1) || (this.page + modificator > maxPages);
   }

@@ -17,14 +17,13 @@
 <body>
   <div class="container text-break">
 
-    <!-- <div *ngIf=" authService.isAuthenticated()"> -->
+    <!-- Logout -->
     <div class="d-flex flex-row-reverse mx-5">
       <div class="display-4 text-info logout" [class.d-none]=" !authService.isAuthenticated() "
         (click)=" authService.logout() ">
         <i class="bi bi-box-arrow-right ml-1"></i>
       </div>
     </div>
-    <!-- </div> -->
 
     <!--Headline-->
     <div class="text-secondary text-center shadow p-3 m-5 bg-body rounded display-1 fw-bold">

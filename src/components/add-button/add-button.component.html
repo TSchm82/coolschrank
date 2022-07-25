@@ -1,21 +1,26 @@
 <section class="mt-5 bg-light">
 
     <form class="row g-3 text-center px-3">
+
+        <!--Info-->
         <div class="col-12">
             <label for="itemName" class="form-control-lg">
                 Here you can add <span class="text-uppercase fw-bold">items</span> to the fridge</label>
         </div>
 
+        <!--Enter Name-->
         <div class="col col-lg-5 col-12">
             <input #nameInputControl="ngModel" name="nameInput" type="text" class="form-control form-control-lg fs-2"
                 id="itemName" placeholder="Name" maxlength="20" [(ngModel)]=" newItem.name">
         </div>
 
+        <!--Enter Target-->
         <div class="col col-lg-5 col-12">
             <input #targetControl="ngModel" name="target" type="number" class="form-control form-control-lg fs-2"
                 id="itemTarget" placeholder="Target" step="0.5" [(ngModel)]=" newItem.target">
         </div>
 
+        <!--Add Button-->
         <div class="col col-lg-2 col-12">
             <button type="button" class="btn btn-primary mb-3 btn-lg fs-2" (click)=" addItem() ">Add item</button>
         </div>
