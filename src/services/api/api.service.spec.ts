@@ -35,7 +35,6 @@ describe('ApiService', () => {
     });
 
     const req = httpMock.expectOne(`${apiServer}/fridge`);
-    expect(req.request.method).toBe('POST');
     req.flush(FRIDGEDUMMY);
   });
 
@@ -45,7 +44,6 @@ describe('ApiService', () => {
     });
 
     const req = httpMock.expectOne(`${apiServer}/fridge/${fridgeId}`);
-    expect(req.request.method).toBe('GET');
     req.flush(FRIDGEDUMMY);
   });
 
@@ -54,8 +52,7 @@ describe('ApiService', () => {
       expect(res).toEqual(ITEMDUMMY);
     });
 
-    const req = httpMock.expectOne(`${apiServer}/fridge/${fridgeId}/item`);
-    expect(req.request.method).toBe('POST');
+    const req = httpMock.expectOne(`${apiServer}/fridge/${fridgeId}/item`);;
     req.flush(ITEMDUMMY);
   });
 
@@ -65,7 +62,6 @@ describe('ApiService', () => {
     });
 
     const req = httpMock.expectOne(`${apiServer}/fridge/${fridgeId}/item/${itemId}`);
-    expect(req.request.method).toBe('GET');
     req.flush(ITEMDUMMY);
   });
 
@@ -75,11 +71,10 @@ describe('ApiService', () => {
     });
 
     const req = httpMock.expectOne(`${apiServer}/fridge/${fridgeId}/item/${ITEMDUMMY.id}`);
-    expect(req.request.method).toBe('POST');
     req.flush(ITEMDUMMY);
   });
 
-  it("should log error", () => {
+  it("should log error in console", () => {
     const spy = spyOn(console, 'error');
 
     const expected = {
@@ -90,6 +85,17 @@ describe('ApiService', () => {
     service.handleError(expected);
 
     expect(spy).toHaveBeenCalledWith('error caught in api service:', expected);
+  });
+
+  it("should return error", () => {
+    const newError = new Error('Api request error');
+
+    service.getItem(fridgeId, itemId).subscribe({
+      error: (error) => expect(error).toEqual(newError)
+    });
+
+    const req = httpMock.expectOne(`${apiServer}/fridge/${fridgeId}/item/${itemId}`);
+    req.error(new ErrorEvent('API error'))
   });
 
 })
