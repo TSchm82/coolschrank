@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 const ITEMSPERPAGE = 4;
 
@@ -19,9 +19,7 @@ export class PaginationComponent {
       return [1];
     }
 
-    const pageCounter = Math.round(this.inventoryLength / ITEMSPERPAGE)
-
-    return Array.from({ length: pageCounter }, (_, i) => i + 1);
+    return Array.from({ length: this.calculateMaxPages() }, (_, i) => i + 1);
   }
 
   public selectPage(modificator: number) {
@@ -34,9 +32,11 @@ export class PaginationComponent {
   }
 
   public isDisabled(modificator: number) {
-    const maxPages = Math.ceil(this.inventoryLength / ITEMSPERPAGE)
+    return (this.page + modificator < 1) || (this.page + modificator > this.calculateMaxPages());
+  }
 
-    return (this.page + modificator < 1) || (this.page + modificator > maxPages);
+  public calculateMaxPages() {
+    return Math.ceil(this.inventoryLength / ITEMSPERPAGE);
   }
 
 }
